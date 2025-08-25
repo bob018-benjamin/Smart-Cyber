@@ -21,124 +21,31 @@ header {
   align-items: center;
   padding: 15px 30px;
 }
-
-header .logo {
-  display: flex;
-  align-items: center;
-  font-size: 20px;
-  font-weight: bold;
-}
-
-header .logo img {
-  height: 40px;
-  margin-right: 10px;
-}
-
-header nav a {
-  color: #fff;
-  text-decoration: none;
-  margin-left: 20px;
-  transition: color 0.3s;
-}
-
-header nav a:hover {
-  color: #1abc9c;
-}
+header .logo { display: flex; align-items: center; font-size: 20px; font-weight: bold; }
+header .logo img { height: 40px; margin-right: 10px; }
+header nav a { color: #fff; text-decoration: none; margin-left: 20px; transition: color 0.3s; }
+header nav a:hover { color: #1abc9c; }
 
 /* Hero */
-.hero {
-  text-align: center;
-  padding: 50px 20px;
-  background: #1abc9c;
-  color: #fff;
-}
-
-.sniper-img {
-  width: 100%;
-  max-height: 400px;
-  object-fit: cover;
-  margin-bottom: 20px;
-  border-radius: 10px;
-}
-
-.hero .btn {
-  display: inline-block;
-  padding: 12px 25px;
-  background: #333;
-  color: #fff;
-  border-radius: 5px;
-  text-decoration: none;
-  margin-top: 15px;
-}
-
-.hero .btn:hover {
-  background: #222;
-}
+.hero { text-align: center; padding: 50px 20px; background: #1abc9c; color: #fff; }
+.sniper-img { width: 100%; max-height: 400px; object-fit: cover; margin-bottom: 20px; border-radius: 10px; }
+.hero .btn { display: inline-block; padding: 12px 25px; background: #333; color: #fff; border-radius: 5px; text-decoration: none; margin-top: 15px; }
+.hero .btn:hover { background: #222; }
 
 /* Features */
-.features {
-  padding: 40px 20px;
-  text-align: center;
-}
-
-.features h2 {
-  margin-bottom: 20px;
-}
-
-.cards {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  flex-wrap: wrap;
-}
-
-.card {
-  background: #fff;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  width: 250px;
-  text-align: center;
-}
-
-.card img {
-  height: 60px;
-  margin-bottom: 15px;
-}
+.features { padding: 40px 20px; text-align: center; }
+.features h2 { margin-bottom: 20px; }
+.cards { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+.card { background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); width: 250px; text-align: center; }
+.card img { height: 60px; margin-bottom: 15px; }
 
 /* Contact */
-.contact {
-  padding: 40px 20px;
-  background: #eee;
-  text-align: center;
-}
+.contact { padding: 40px 20px; background: #eee; text-align: center; }
+.contact .btn { display: inline-block; margin: 10px; padding: 10px 20px; border-radius: 5px; text-decoration: none; font-weight: bold; }
+.btn.whatsapp { background: #25d366; color: #fff; }
+.btn.email { background: #0072c6; color: #fff; }
 
-.contact input,
-.contact textarea,
-.contact .btn {
-  width: 100%;
-  padding: 12px;
-  margin: 10px 0;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-}
-
-.contact textarea {
-  resize: vertical;
-}
-
-.contact .btn {
-  border: none;
-  background: #1abc9c;
-  color: #fff;
-  cursor: pointer;
-}
-
-.contact .btn:hover {
-  background: #16a085;
-}
-
-/* Auth Container (Login & Reset) */
+/* Auth Forms */
 .auth-container {
   max-width: 400px;
   margin: 50px auto;
@@ -148,9 +55,24 @@ header nav a:hover {
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   text-align: center;
 }
-
 .auth-container input {
   width: 100%;
   padding: 12px;
   margin: 10px 0;
-  border-radius: 5
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+.auth-container .btn {
+  width: 100%;
+  padding: 12px;
+  margin-top: 15px;
+  border: none;
+  background: #1abc9c;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.auth-container .btn:hover { background: #16a085; }
+
+/* Footer */
+footer { text-align: center; padding: 15px; background: #111; color: #fff; margin-top: 20px; }
