@@ -61,7 +61,7 @@ header nav a:hover {
   border-radius: 10px;
 }
 
-.hero .btn {
+.sniper .btn {
   display: inline-block;
   padding: 12px 25px;
   background: #333;
@@ -71,7 +71,7 @@ header nav a:hover {
   margin-top: 15px;
 }
 
-.hero .btn:hover {
+.sniper .btn:hover {
   background: #222;
 }
 
@@ -171,3 +171,4 @@ footer {
   color: #fff;
   margin-top: 20px;
 }
+
