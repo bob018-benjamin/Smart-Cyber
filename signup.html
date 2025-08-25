@@ -15,23 +15,18 @@
       <input type="password" id="signup-confirm-password" placeholder="Confirm Password" required>
       <button type="submit" class="btn">Create Account</button>
     </form>
-    <p>
-      Already have an account? <a href="login.html">Login here</a>
-    </p>
+    <p>Already have an account? <a href="login.html">Login here</a></p>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
-    // Supabase config
     const SUPABASE_URL = "https://xbkloxgdqnxuubdnjwzk.supabase.co";
-    const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY"; // Replace with your actual key
+    const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY"; // Replace with your key
     const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
     const signupForm = document.querySelector("#signup-form");
-
     signupForm.addEventListener("submit", async (e) => {
       e.preventDefault();
-
       const email = document.querySelector("#signup-email").value;
       const password = document.querySelector("#signup-password").value;
       const confirmPassword = document.querySelector("#signup-confirm-password").value;
@@ -42,12 +37,10 @@
       }
 
       const { data, error } = await supabase.auth.signUp({ email, password });
-
-      if (error) {
-        alert(error.message);
-      } else {
-        alert("Account created! Please check your email to confirm your account.");
-        window.location.href = "login.html"; // redirect to login page
+      if (error) alert(error.message);
+      else {
+        alert("Account created! Please check your email to confirm.");
+        window.location.href = "login.html";
       }
     });
   </script>
