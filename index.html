@@ -64,19 +64,29 @@
   <!-- Auth Section -->
   <section id="auth" class="auth">
     <h2>Create Account / Sign In</h2>
-    <form>
-      <input type="text" placeholder="Full Name" required>
-      <input type="email" placeholder="Email" required>
-      <input type="password" placeholder="Password" required>
-      <button type="submit" class="btn">Sign Up / Sign In</button>
+    <form id="auth-form">
+      <input type="email" id="email" placeholder="Email" required>
+      <input type="password" id="password" placeholder="Password" required>
+      <button type="submit" class="btn">Sign In</button>
     </form>
+
+    <p>
+      Don’t have an account? 
+      <a href="#" id="signup">Create Account</a>
+    </p>
+    <p>
+      Forgot password? 
+      <a href="#" id="reset">Reset Here</a>
+    </p>
   </section>
 
   <!-- Footer -->
   <footer>
     <p>© 2025 Smart Cyber. All Rights Reserved.</p>
   </footer>
+
+  <!-- Supabase & Auth Logic -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="auth.js"></script>
 </body>
 </html>
-
-
