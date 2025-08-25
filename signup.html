@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Cyber - Create Account</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="auth-container">
+    <h2>Create Account</h2>
+    <form id="signup-form">
+      <input type="email" id="signup-email" placeholder="Email" required>
+      <input type="password" id="signup-password" placeholder="Password (min 6 chars)" required>
+      <button type="submit" class="btn">Sign Up</button>
+    </form>
+
+    <p>
+      Already have an account? <a href="login.html">Sign In</a>
+    </p>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    const SUPABASE_URL = "https://xbkloxgdqnxuubdnjwzk.supabase.co";
+    const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY"; // replace with actual key
+    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    const signupForm = document.querySelector("#signup-form");
+
+    signupForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = document.querySelector("#signup-email").value;
+      const password = document.querySelector("#signup-password").value;
+
+      const { data, error } = await supabase.auth.signUp({ email, password });
+
+      if (error) alert(error.message);
+      else {
+        alert("Account created! Check your email to confirm.");
+        window.location.href = "login.html";
+      }
+    });
+  </script>
+</body>
+</html>
