@@ -1,5 +1,5 @@
 const SUPABASE_URL = "https://xbkloxgdqnxuubdnjwzk.supabase.co";
-const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY";
+const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY"; // replace with actual anon key
 
 const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
@@ -10,12 +10,14 @@ contactForm.addEventListener("submit", async (e) => {
 
   const formData = new FormData(contactForm);
   const files = formData.getAll("files");
-
-  // Upload each file to Supabase Storage (bucket: "contacts")
   const uploadedFiles = [];
+
   for (let i = 0; i < files.length && i < 5; i++) {
     const file = files[i];
-    const { data, error } = await supabase.storage.from("contacts").upload(`${Date.now()}_${file.name}`, file);
+    const { data, error } = await supabase.storage
+      .from("contacts")
+      .upload(`${Date.now()}_${file.name}`, file);
+
     if (error) {
       alert("File upload error: " + error.message);
       return;
@@ -23,7 +25,6 @@ contactForm.addEventListener("submit", async (e) => {
     uploadedFiles.push(data.path);
   }
 
-  // Insert contact info to "contacts" table
   const { data, error } = await supabase.from("contacts").insert([{
     name: formData.get("name"),
     email: formData.get("email"),
