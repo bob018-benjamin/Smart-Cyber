@@ -45,7 +45,7 @@ header nav a:hover {
   color: #1abc9c;
 }
 
-/* Hero */
+/* Hero Section */
 .hero {
   text-align: center;
   padding: 50px 20px;
@@ -61,7 +61,7 @@ header nav a:hover {
   border-radius: 10px;
 }
 
-.sniper .btn {
+.hero .btn {
   display: inline-block;
   padding: 12px 25px;
   background: #333;
@@ -71,11 +71,11 @@ header nav a:hover {
   margin-top: 15px;
 }
 
-.sniper .btn:hover {
+.hero .btn:hover {
   background: #222;
 }
 
-/* Features */
+/* Features Section */
 .features {
   padding: 40px 20px;
   text-align: center;
@@ -106,61 +106,90 @@ header nav a:hover {
   margin-bottom: 15px;
 }
 
-/* Contact */
-.contact {
+/* Contact Section */
+.contact-anonymous {
   padding: 40px 20px;
   background: #eee;
   text-align: center;
 }
 
-.contact .btn {
-  display: inline-block;
-  margin: 10px;
-  padding: 10px 20px;
-  border-radius: 5px;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-.btn.whatsapp {
-  background: #25d366;
-  color: #fff;
-}
-
-.btn.email {
-  background: #0072c6;
-  color: #fff;
-}
-
-/* Auth */
-.auth {
-  padding: 40px 20px;
-  text-align: center;
-}
-
-.auth form {
-  max-width: 400px;
+.contact-anonymous form {
+  max-width: 500px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
 }
 
-.auth input {
+.contact-anonymous input,
+.contact-anonymous textarea {
   padding: 12px;
   margin: 10px 0;
   border: 1px solid #ccc;
   border-radius: 5px;
 }
 
-.auth .btn {
+.contact-anonymous .btn {
   background: #1abc9c;
   color: #fff;
   border: none;
   cursor: pointer;
+  margin-top: 10px;
 }
 
-.auth .btn:hover {
+.contact-anonymous .btn:hover {
   background: #16a085;
+}
+
+/* Auth Section (Login/Signup) */
+.auth.professional-auth {
+  padding: 60px 20px;
+  max-width: 400px;
+  margin: 40px auto;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+  text-align: center;
+}
+
+.auth.professional-auth h2 {
+  margin-bottom: 25px;
+}
+
+.auth.professional-auth input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.auth.professional-auth .btn {
+  background: #1abc9c;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  padding: 12px;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.auth.professional-auth .btn:hover {
+  background: #16a085;
+}
+
+.auth.professional-auth p {
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.auth.professional-auth a {
+  color: #1abc9c;
+  text-decoration: none;
+}
+
+.auth.professional-auth a:hover {
+  text-decoration: underline;
 }
 
 /* Footer */
@@ -172,3 +201,10 @@ footer {
   margin-top: 20px;
 }
 
+/* Responsive */
+@media (max-width: 768px) {
+  .cards {
+    flex-direction: column;
+    align-items: center;
+  }
+}
