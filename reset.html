@@ -1,19 +1,22 @@
-const SUPABASE_URL = "https://xbkloxgdqnxuubdnjwzk.supabase.co";
-const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY"; // replace with actual anon key
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reset Password - Smart Cyber</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="auth-container">
+    <h2>Reset Your Password</h2>
+    <form id="reset-form">
+      <input type="email" id="reset-email" placeholder="Enter your email" required>
+      <button type="submit" class="btn">Send Reset Email</button>
+    </form>
+    <p>Remember your password? <a href="login.html">Login here</a></p>
+  </div>
 
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-const resetForm = document.querySelector("#reset-form");
-
-resetForm.addEventListener("submit", async (e) => {
-  e.preventDefault();
-  const newPassword = document.querySelector("#new-password").value;
-
-  const { error } = await supabase.auth.updateUser({ password: newPassword });
-
-  if (error) alert(error.message);
-  else {
-    alert("Password updated successfully!");
-    window.location.href = "login.html";
-  }
-});
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="reset.js"></script>
+</body>
+</html>
