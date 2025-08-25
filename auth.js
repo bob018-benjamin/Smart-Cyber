@@ -1,11 +1,10 @@
 const SUPABASE_URL = "https://xbkloxgdqnxuubdnjwzk.supabase.co";
-const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY";
+const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY"; // replace with actual anon key
 
 const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 const authForm = document.querySelector("#auth-form");
 const signupBtn = document.querySelector("#signup");
-const resetBtn = document.querySelector("#reset");
 
 // Sign In
 authForm.addEventListener("submit", async (e) => {
@@ -33,15 +32,3 @@ signupBtn.addEventListener("click", async (e) => {
   else alert("Account created! Check your email to confirm.");
 });
 
-// Reset Password
-resetBtn.addEventListener("click", async (e) => {
-  e.preventDefault();
-  const email = prompt("Enter your email to reset password:");
-
-  const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
-    redirectTo: window.location.origin + "/login.html",
-  });
-
-  if (error) alert(error.message);
-  else alert("Password reset email sent!");
-});
