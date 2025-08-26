@@ -27,6 +27,7 @@
     const signupForm = document.querySelector("#signup-form");
     signupForm.addEventListener("submit", async (e) => {
       e.preventDefault();
+
       const email = document.querySelector("#signup-email").value;
       const password = document.querySelector("#signup-password").value;
       const confirmPassword = document.querySelector("#signup-confirm-password").value;
@@ -36,9 +37,18 @@
         return;
       }
 
-      const { data, error } = await supabase.auth.signUp({ email, password });
-      if (error) alert(error.message);
-      else {
+      // Add the emailRedirectTo option here
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          emailRedirectTo: "https://yourusername.github.io/your-repo/login.html"
+        }
+      });
+
+      if (error) {
+        alert(error.message);
+      } else {
         alert("Account created! Please check your email to confirm.");
         window.location.href = "login.html";
       }
