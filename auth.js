@@ -1,42 +1,39 @@
-// js/auth.js
+authForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
 
-// Sign up a new user (customer)
-async function signUp(email, password) {
-  const { user, error } = await supabase.auth.signUp({
-    email,
-    password
-  });
-  if (error) throw error;
-  return user;
-}
+  const email = document.querySelector("#email").value;
+  const password = document.querySelector("#password").value;
 
-// Log in an existing user
-async function signIn(email, password) {
-  const { user, error } = await supabase.auth.signInWithPassword({
-    email,
-    password
-  });
-  if (error) throw error;
-  return user;
-}
+  const { data, error } = await supabase.auth.signInWithPassword({ email, password });
 
-// Log out the current user
-async function signOut() {
-  const { error } = await supabase.auth.signOut();
-  if (error) throw error;
-  window.location.href = 'index.html';
-}
-
-// Get current session
-async function getCurrentUser() {
-  const { data: { user } } = await supabase.auth.getUser();
-  return user;
-}
-
-// Protect pages that require login
-async function protectPage() {
-  const user = await getCurrentUser();
-  if (!user) {
-    window.location.href = 'login.html';
+  if (error) {
+    alert(error.message);
+    return;
   }
-}
+
+  const user = data.user;
+
+  // Make sure email is confirmed
+  if (!user.email_confirmed_at) {
+    alert("Please verify your email before logging in.");
+    return;
+  }
+
+  // Fetch role from profile
+  const { data: profile, error: profileError } = await supabase
+    .from("profiles")
+    .select("role")
+    .eq("id", user.id)
+    .single();
+
+  if (profileError || !profile) {
+    alert("Error fetching user role.");
+    return;
+  }
+
+  if (profile.role === "admin") {
+    window.location.href = "dashboard-admin.html";
+  } else {
+    window.location.href = "dashboard-user.html";
+  }
+});
