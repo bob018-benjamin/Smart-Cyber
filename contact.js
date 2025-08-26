@@ -1,27 +1,19 @@
 const SUPABASE_URL = "https://xbkloxgdqnxuubdnjwzk.supabase.co";
-const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY"; // replace with actual anon key
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inhia2xveGdkcW54dXViZG5qd3prIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTYxMzU0NDksImV4cCI6MjA3MTcxMTQ0OX0.6n8c6ZzFTOCAXM-RN8LrkpfxHil2nTV35ArEGgrs_9w";
 
 const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
 const contactForm = document.querySelector("#contact-form");
 
 contactForm.addEventListener("submit", async (e) => {
   e.preventDefault();
-
   const formData = new FormData(contactForm);
   const files = formData.getAll("files");
   const uploadedFiles = [];
 
   for (let i = 0; i < files.length && i < 5; i++) {
     const file = files[i];
-    const { data, error } = await supabase.storage
-      .from("contacts")
-      .upload(`${Date.now()}_${file.name}`, file);
-
-    if (error) {
-      alert("File upload error: " + error.message);
-      return;
-    }
+    const { data, error } = await supabase.storage.from("contacts").upload(`${Date.now()}_${file.name}`, file);
+    if (error) { alert("File upload error: " + error.message); return; }
     uploadedFiles.push(data.path);
   }
 
@@ -34,8 +26,5 @@ contactForm.addEventListener("submit", async (e) => {
   }]);
 
   if (error) alert(error.message);
-  else {
-    alert("Message sent successfully!");
-    contactForm.reset();
-  }
+  else { alert("Message sent successfully!"); contactForm.reset(); }
 });
