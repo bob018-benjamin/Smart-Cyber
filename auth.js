@@ -4,7 +4,6 @@ const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
 const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 const authForm = document.querySelector("#auth-form");
-const signupBtn = document.querySelector("#signup");
 
 // Sign In
 authForm.addEventListener("submit", async (e) => {
@@ -14,6 +13,11 @@ authForm.addEventListener("submit", async (e) => {
 
   const { data, error } = await supabase.auth.signInWithPassword({ email, password });
 
-  if (error) alert(error.message);
-  else window.location.href = "dashboard.html";
+  if (error) {
+    alert(error.message);
+  } else {
+    // Optionally, you can get the user object: data.user
+    window.location.href = "dashboard.html"; // Redirect after successful login
+  }
 });
+
