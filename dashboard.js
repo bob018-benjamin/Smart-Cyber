@@ -1,108 +1,59 @@
-const SUPABASE_URL = "https://xbkloxgdqnxuubdnjwzk.supabase.co";
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inhia2xveGdkcW54dXViZG5qd3prIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTYxMzU0NDksImV4cCI6MjA3MTcxMTQ0OX0.6n8c6ZzFTOCAXM-RN8LrkpfxHil2nTV35ArEGgrs_9w"; // Replace with your key
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-const userNameEl = document.getElementById("user-name");
-const userEmailEl = document.getElementById("user-email");
-const userPhoneEl = document.getElementById("user-phone");
-
-const serviceListEl = document.getElementById("service-list");
-const transactionListEl = document.getElementById("transaction-list");
-const ticketListEl = document.getElementById("ticket-list");
-const ticketForm = document.getElementById("ticket-form");
-
-// Check if user is logged in
-async function loadUser() {
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) {
-    window.location.href = "login.html";
-    return;
-  }
-
-  userNameEl.textContent = user.user_metadata.full_name || "User";
-  userEmailEl.textContent = user.email;
-  userPhoneEl.textContent = user.user_metadata.phone || "Not set";
-
-  loadServices(user.id);
-  loadTransactions(user.id);
-  loadTickets(user.id);
-}
-
-// Fetch services
-async function loadServices(userId) {
-  const { data, error } = await supabase.from("services").select("*").eq("user_id", userId);
-  if (error) return console.error(error);
-
-  serviceListEl.innerHTML = data.map(s => `
-    <div class="service-item">
-      <strong>${s.service_type}</strong> - Status: ${s.status}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Dashboard - Smart Cyber</title>
+  <link rel="stylesheet" href="dashboard.css" />
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <img src="images/logo.png" alt="Smart Cyber Logo">
+      Smart Cyber
     </div>
-  `).join("");
-}
+    <nav>
+      <a href="#" id="logout">Logout</a>
+    </nav>
+  </header>
 
-// Fetch transactions
-async function loadTransactions(userId) {
-  const { data, error } = await supabase.from("transactions").select("*").eq("user_id", userId);
-  if (error) return console.error(error);
+  <main>
+    <section class="profile">
+      <h2>Welcome, <span id="user-name">User</span></h2>
+      <p>Email: <span id="user-email"></span></p>
+      <p>Phone: <span id="user-phone"></span></p>
+      <button id="update-profile-btn" class="btn">Update Profile</button>
+      <button id="change-password-btn" class="btn">Change Password</button>
+    </section>
 
-  transactionListEl.innerHTML = data.map(t => `
-    <div class="transaction-item">
-      ${t.service} - KES ${t.amount} - ${new Date(t.date).toLocaleDateString()}
-    </div>
-  `).join("");
-}
+    <section class="services">
+      <h2>Your Services</h2>
+      <div id="service-list"></div>
+      <button id="new-service-btn" class="btn">Request New Service</button>
+    </section>
 
-// Fetch tickets
-async function loadTickets(userId) {
-  const { data, error } = await supabase.from("tickets").select("*").eq("user_id", userId);
-  if (error) return console.error(error);
+    <section class="transactions">
+      <h2>Payment History</h2>
+      <div id="transaction-list"></div>
+    </section>
 
-  ticketListEl.innerHTML = data.map(t => `
-    <div class="ticket-item">
-      <strong>${t.title}</strong> - Status: ${t.status}
-    </div>
-  `).join("");
-}
+    <section class="support">
+      <h2>Support Tickets</h2>
+      <form id="ticket-form">
+        <input type="text" name="title" placeholder="Ticket Title" required>
+        <textarea name="description" placeholder="Describe your issue" required></textarea>
+        <input type="file" name="files" multiple>
+        <button type="submit" class="btn">Submit Ticket</button>
+      </form>
+      <div id="ticket-list"></div>
+    </section>
+  </main>
 
-// Submit new ticket
-ticketForm.addEventListener("submit", async (e) => {
-  e.preventDefault();
-  const { title, description, files } = ticketForm.elements;
+  <footer>
+    <p>© 2025 Smart Cyber. All Rights Reserved.</p>
+  </footer>
 
-  const { data: userData } = await supabase.auth.getUser();
-  if (!userData.user) return alert("Login first");
-
-  let uploadedFiles = [];
-  if (files.files.length > 0) {
-    for (let i = 0; i < files.files.length && i < 5; i++) {
-      const file = files.files[i];
-      const { data, error } = await supabase.storage.from("tickets").upload(`${Date.now()}_${file.name}`, file);
-      if (error) return alert(error.message);
-      uploadedFiles.push(data.path);
-    }
-  }
-
-  const { error } = await supabase.from("tickets").insert([{
-    user_id: userData.user.id,
-    title: title.value,
-    description: description.value,
-    files: uploadedFiles,
-    status: "Pending"
-  }]);
-
-  if (error) alert(error.message);
-  else {
-    alert("Ticket submitted successfully!");
-    ticketForm.reset();
-    loadTickets(userData.user.id);
-  }
-});
-
-// Logout
-document.getElementById("logout").addEventListener("click", async () => {
-  await supabase.auth.signOut();
-  window.location.href = "login.html";
-});
-
-loadUser();
-
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="dashboard.js"></script>
+</body>
+</html>
