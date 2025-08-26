@@ -19,26 +19,34 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 30px;
+  padding: 15px 20px; /* Reduced padding for mobile first */
+  flex-wrap: wrap; /* Allows items to wrap if needed */
 }
 
 header .logo {
   display: flex;
   align-items: center;
-  font-size: 20px;
+  font-size: 1.25rem; /* Using rem for scalable font */
   font-weight: bold;
 }
 
 header .logo img {
-  height: 40px;
+  height: 35px; /* Slightly smaller for mobile */
   margin-right: 10px;
+}
+
+header nav {
+  display: flex;
+  gap: 15px; /* Better than margin-left for spacing */
+  margin-top: 10px; /* Adds space when wrapped on mobile */
+  flex-wrap: wrap; /* Allows nav links to wrap */
 }
 
 header nav a {
   color: #fff;
   text-decoration: none;
-  margin-left: 20px;
   transition: color 0.3s;
+  font-size: 0.9rem;
 }
 
 header nav a:hover {
@@ -48,17 +56,21 @@ header nav a:hover {
 /* Hero */
 .hero {
   text-align: center;
-  padding: 50px 20px;
+  padding: 40px 20px; /* Reduced padding for mobile */
   background: #1abc9c;
   color: #fff;
 }
 
 .sniper-img {
   width: 100%;
-  max-height: 400px;
+  max-height: 300px; /* Reduced max-height for mobile */
   object-fit: cover;
   margin-bottom: 20px;
   border-radius: 10px;
+}
+
+.hero h1 {
+  font-size: 1.8rem; /* Smaller heading on mobile */
 }
 
 .hero .btn {
@@ -89,7 +101,7 @@ header nav a:hover {
   display: flex;
   justify-content: center;
   gap: 20px;
-  flex-wrap: wrap;
+  flex-wrap: wrap; /* This is good! It allows wrapping */
 }
 
 .card {
@@ -97,7 +109,9 @@ header nav a:hover {
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  width: 250px;
+  flex: 1; /* Allows cards to grow and shrink */
+  min-width: 250px; /* Prevents cards from getting too narrow */
+  max-width: 350px; /* Prevents cards from getting too wide */
   text-align: center;
 }
 
@@ -113,13 +127,22 @@ header nav a:hover {
   text-align: center;
 }
 
+.contact-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px; /* Use gap instead of margin for spacing */
+  flex-wrap: wrap; /* Allows buttons to stack on mobile */
+}
+
 .contact .btn {
   display: inline-block;
-  margin: 10px;
-  padding: 10px 20px;
+  padding: 12px 20px; /* Adjusted padding */
   border-radius: 5px;
   text-decoration: none;
   font-weight: bold;
+  flex: 1; /* Makes buttons flexible */
+  min-width: 140px; /* Prevents buttons from getting too small */
+  text-align: center;
 }
 
 .btn.whatsapp {
@@ -132,7 +155,16 @@ header nav a:hover {
   color: #fff;
 }
 
-/* Auth */
+/* Footer */
+footer {
+  text-align: center;
+  padding: 15px;
+  background: #111;
+  color: #fff;
+  margin-top: 20px;
+}
+
+/* Auth (Keep your existing styles, they are fine) */
 .auth-container {
   max-width: 400px;
   margin: 50px auto;
@@ -166,11 +198,40 @@ header nav a:hover {
   background: #16a085;
 }
 
-/* Footer */
-footer {
-  text-align: center;
-  padding: 15px;
-  background: #111;
-  color: #fff;
-  margin-top: 20px;
+/* === MOBILE STYLES (For screens less than 768px wide) === */
+@media (max-width: 768px) {
+  /* Stack the header vertically on very small screens */
+  header {
+    flex-direction: column;
+    text-align: center;
+    padding: 15px;
+  }
+
+  header nav {
+    margin-top: 15px;
+  }
+
+  /* Adjust hero section for mobile */
+  .hero {
+    padding: 30px 15px;
+  }
+
+  .hero h1 {
+    font-size: 1.5rem; /* Even smaller heading on very small phones */
+  }
+
+  /* Make cards full width on mobile */
+  .card {
+    min-width: 100%; /* Cards will take the full width of their container */
+  }
+
+  /* Stack contact buttons vertically on mobile */
+  .contact-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .contact .btn {
+    width: 80%; /* Make buttons a bit narrower on mobile */
+  }
 }
