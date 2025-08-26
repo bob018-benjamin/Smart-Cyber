@@ -1,5 +1,5 @@
 const SUPABASE_URL = "https://xbkloxgdqnxuubdnjwzk.supabase.co";
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inhia2xveGdkcW54dXViZG5qd3prIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTYxMzU0NDksImV4cCI6MjA3MTcxMTQ0OX0.6n8c6ZzFTOCAXM-RN8LrkpfxHil2nTV35ArEGgrs_9w"; // replace with actual anon key
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inhia2xveGdkcW54dXViZG5qd3prIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTYxMzU0NDksImV4cCI6MjA3MTcxMTQ0OX0.6n8c6ZzFTOCAXM-RN8LrkpfxHil2nTV35ArEGgrs_9w";
 
 const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
@@ -17,19 +17,3 @@ authForm.addEventListener("submit", async (e) => {
   if (error) alert(error.message);
   else window.location.href = "dashboard.html";
 });
-
-// Sign Up
-signupBtn.addEventListener("click", async (e) => {
-  e.preventDefault();
-  const email = prompt("Enter your email:");
-  const password = prompt("Enter a password (min 6 chars):");
-
-  if (!email || !password) return;
-
-  const { data, error } = await supabase.auth.signUp({ email, password });
-
-  if (error) alert(error.message);
-  else alert("Account created! Check your email to confirm.");
-});
-
-
