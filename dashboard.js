@@ -1,5 +1,5 @@
 const SUPABASE_URL = "https://xbkloxgdqnxuubdnjwzk.supabase.co";
-const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY"; // Replace with your key
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inhia2xveGdkcW54dXViZG5qd3prIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTYxMzU0NDksImV4cCI6MjA3MTcxMTQ0OX0.6n8c6ZzFTOCAXM-RN8LrkpfxHil2nTV35ArEGgrs_9w"; // Replace with your key
 const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 const userNameEl = document.getElementById("user-name");
@@ -105,3 +105,4 @@ document.getElementById("logout").addEventListener("click", async () => {
 });
 
 loadUser();
+
