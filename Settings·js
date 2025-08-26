@@ -1,0 +1,66 @@
+// settings.js
+import { supabase } from './supabaseClient.js';
+import { protectPage } from './auth.js';
+
+protectPage();
+
+const form = document.getElementById("settings-form");
+
+async function loadSettings() {
+  const {
+    data: { user },
+    error,
+  } = await supabase.auth.getUser();
+
+  if (error || !user) return;
+
+  document.getElementById("email").value = user.email;
+
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("name, phone, avatar_url")
+    .eq("id", user.id)
+    .single();
+
+  if (profile) {
+    document.getElementById("name").value = profile.name || "";
+    document.getElementById("phone").value = profile.phone || "";
+    document.getElementById("avatar_url").value = profile.avatar_url || "";
+  }
+}
+
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const name = document.getElementById("name").value;
+  const phone = document.getElementById("phone").value;
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+  const avatar_url = document.getElementById("avatar_url").value;
+
+  const {
+    data: { user },
+    error,
+  } = await supabase.auth.getUser();
+
+  if (!user) return alert("User not found");
+
+  await supabase.from("profiles").upsert({
+    id: user.id,
+    name,
+    phone,
+    avatar_url,
+  });
+
+  if (email !== user.email) {
+    await supabase.auth.updateUser({ email });
+  }
+
+  if (password) {
+    await supabase.auth.updateUser({ password });
+  }
+
+  alert("Settings updated!");
+});
+
+loadSettings();
